@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="theme-color" content="#0a0818">
-  <title>卡牌商店 - 激活</title>
+  <title>游戏激活</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body {
@@ -56,7 +56,7 @@
 <body>
   <div class="container">
     <div class="header">
-      <h1>卡牌商店 激活</h1>
+      <h1>游戏激活</h1>
       <p>输入设备码和卡密获取激活码</p>
     </div>
     <div class="card">
@@ -72,7 +72,7 @@
       <div class="result" id="result"></div>
     </div>
     <div class="steps">
-      <p>1. 在手环上打开卡牌商店，查看8位设备码</p>
+      <p>1. 在手环上打开游戏，查看8位设备码</p>
       <p>2. 输入设备码和卡密，点击获取激活码</p>
       <p>3. 将获得的激活码输入到手环中完成激活</p>
     </div>
@@ -84,14 +84,16 @@
     var _0x8c3d=function(_0x5f2a,_0x9e1b){var _0x3d6c=0x0;for(var _0x2b8a=0x0;_0x2b8a<_0x5f2a['\x6c\x65\x6e\x67\x74\x68'];_0x2b8a++){_0x3d6c=((_0x3d6c<<0x5)-_0x3d6c+_0x5f2a['\x63\x68\x61\x72\x43\x6f\x64\x65\x41\x74'](_0x2b8a))|0x0}var _0x4f7a='',_0x6e2d=Math['\x61\x62\x73'](_0x3d6c);for(var _0x2b8a=0x0;_0x2b8a<_0x9e1b;_0x2b8a++){_0x6e2d=((_0x6e2d*0x1f+_0x5f2a['\x63\x68\x61\x72\x43\x6f\x64\x65\x41\x74'](_0x2b8a%_0x5f2a['\x6c\x65\x6e\x67\x74\x68']))|0x0);_0x6e2d=Math['\x61\x62\x73'](_0x6e2d);_0x4f7a+=(_0x6e2d%0xa)['\x74\x6f\x53\x74\x72\x69\x6e\x67']()}return _0x4f7a};
     function generateActivationCode(_0x3a7e){var _0x1f4b=[];for(var _0x2b8a=0x0;_0x2b8a<_0x3a7e['\x6c\x65\x6e\x67\x74\x68'];_0x2b8a++){_0x1f4b['\x70\x75\x73\x68']((parseInt(_0x3a7e[_0x2b8a])+_0x7b1e[_0x2b8a%_0x7b1e['\x6c\x65\x6e\x67\x74\x68']])%0xa)}return _0x8c3d(_0x1f4b['\x6a\x6f\x69\x6e']('')+'\x61\x63\x74\x69\x76\x61\x74\x69\x6f\x6e'+_0x3a7e,0x8)}
 
-    // 预置有效卡密列表（开发者生成后填入，离线验证）
-    var VALID_KEYS = [
+    // ===== 卡密列表（开发者生成后更新此处，重新部署即可） =====
+    // 格式：卡密字符串，用户端验证通过后标记为已使用
+    var CARD_KEYS = [
       "6KA9-5SL9-7ZCF-QJ38",
       "CHB9-N3XC-8AYT-W9RC",
       "U4YR-622Y-U5RM-DJGA",
       "ZNJF-WHJ5-6XCT-9EHM",
       "SMQK-VXBY-72DA-Z5RX"
-    ]
+    ];
+    // =========================================================
 
     function doActivate() {
       var deviceCode = document.getElementById('deviceCode').value.trim()
@@ -106,8 +108,11 @@
         return
       }
 
-      // 验证卡密
-      if (VALID_KEYS.indexOf(cardKey) === -1) {
+      // 标准化卡密格式（去掉空格，大写）
+      cardKey = cardKey.replace(/\s/g, '')
+
+      // 验证卡密是否在列表中
+      if (CARD_KEYS.indexOf(cardKey) === -1) {
         showResult('error', '卡密无效')
         return
       }
