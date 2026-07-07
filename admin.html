@@ -7,18 +7,13 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="卡密管理">
   <meta name="theme-color" content="#0a0818">
-  <title>卡牌商店 - 管理端</title>
+  <title>游戏激活 - 管理端</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
-      background: linear-gradient(135deg, #0a0818 0%, #1a1535 50%, #0d1b2a 100%);
-      min-height: 100vh; color: #e0e0e0; padding: 16px; padding-bottom: 40px;
-    }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif; background: linear-gradient(135deg, #0a0818 0%, #1a1535 50%, #0d1b2a 100%); min-height: 100vh; color: #e0e0e0; padding: 16px; padding-bottom: 40px; }
     .header { text-align: center; padding: 16px 0; }
     .header h1 { font-size: 22px; color: #00e5ff; text-shadow: 0 0 20px rgba(0,229,255,0.3); }
     .header p { font-size: 12px; color: #69f0ae; margin-top: 4px; }
-
     .login-box { background: rgba(255,255,255,0.06); border-radius: 16px; padding: 24px; border: 1px solid rgba(0,229,255,0.2); display: block; }
     .login-box.hidden { display: none; }
     .label { font-size: 13px; color: #69f0ae; margin-bottom: 8px; font-weight: bold; }
@@ -26,14 +21,12 @@
     .input:focus { outline: none; border-color: #00e5ff; }
     .btn { width: 100%; padding: 12px; border-radius: 10px; border: none; font-size: 15px; font-weight: bold; cursor: pointer; background: #00e5ff; color: #000; }
     .btn:active { transform: scale(0.98); }
-
+    .btn:disabled { opacity: 0.5; }
     .main { display: none; }
     .main.show { display: block; }
-
     .tab-bar { display: flex; gap: 8px; margin-bottom: 16px; }
     .tab { flex: 1; padding: 10px; text-align: center; font-size: 14px; font-weight: bold; border-radius: 10px; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); }
     .tab.active { background: rgba(0,229,255,0.2); border-color: #00e5ff; color: #00e5ff; }
-
     .stats-bar { display: flex; gap: 10px; margin-bottom: 16px; }
     .stat-card { flex: 1; background: rgba(255,255,255,0.06); border-radius: 12px; padding: 12px 8px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
     .stat-num { font-size: 24px; font-weight: bold; }
@@ -41,18 +34,14 @@
     .stat-card.total .stat-num { color: #00e5ff; }
     .stat-card.used .stat-num { color: #69f0ae; }
     .stat-card.unused .stat-num { color: #ffb74d; }
-
     .page-section { display: none; }
     .page-section.active { display: block; }
-
     .gen-box { background: rgba(255,255,255,0.06); border-radius: 16px; padding: 20px; border: 1px solid rgba(0,229,255,0.2); margin-bottom: 16px; }
     .gen-title { font-size: 16px; color: #00e5ff; font-weight: bold; margin-bottom: 12px; }
     .gen-btn { width: 100%; padding: 12px; border-radius: 10px; border: none; font-size: 15px; font-weight: bold; cursor: pointer; background: #00e5ff; color: #000; }
-
     .key-item { background: rgba(105,240,174,0.08); border: 1px solid rgba(105,240,174,0.2); border-radius: 8px; padding: 10px 14px; margin-bottom: 6px; display: flex; justify-content: space-between; align-items: center; }
     .key-text { font-size: 16px; font-family: monospace; font-weight: bold; color: #69f0ae; letter-spacing: 1px; }
     .mini-btn { padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; border: 1px solid rgba(0,229,255,0.4); background: rgba(0,229,255,0.1); color: #00e5ff; }
-
     .list-item { background: rgba(255,255,255,0.06); border-radius: 12px; padding: 12px 14px; border: 1px solid rgba(255,255,255,0.1); margin-bottom: 8px; }
     .list-item.used { border-color: rgba(105,240,174,0.3); }
     .list-item.unused { border-color: rgba(255,183,77,0.2); }
@@ -63,20 +52,18 @@
     .status-unused { background: rgba(255,183,77,0.15); color: #ffb74d; }
     .list-info { margin-top: 6px; font-size: 12px; color: #888; display: flex; gap: 14px; flex-wrap: wrap; }
     .del-btn { margin-top: 6px; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: bold; cursor: pointer; border: 1px solid rgba(255,82,82,0.4); background: rgba(255,82,82,0.1); color: #ff5252; }
-
     .toast { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); background: rgba(0,229,255,0.95); color: #000; padding: 8px 20px; border-radius: 20px; font-size: 13px; font-weight: bold; opacity: 0; transition: opacity 0.3s; z-index: 200; pointer-events: none; }
     .toast.show { opacity: 1; }
     .empty-hint { text-align: center; padding: 30px; color: #555; font-size: 14px; }
     .logout-btn { position: fixed; top: 16px; right: 16px; padding: 6px 12px; border-radius: 8px; border: 1px solid rgba(255,82,82,0.4); background: rgba(255,82,82,0.1); color: #ff5252; font-size: 12px; font-weight: bold; cursor: pointer; z-index: 50; }
-    .actions { display: flex; gap: 10px; margin-bottom: 16px; }
-    .action-btn { flex: 1; padding: 10px; border-radius: 10px; border: none; font-size: 13px; font-weight: bold; cursor: pointer; }
-    .btn-export { background: rgba(105,240,174,0.15); border: 1px solid #69f0ae; color: #69f0ae; }
-    .btn-clear { background: rgba(255,82,82,0.15); border: 1px solid #ff5252; color: #ff5252; }
+    .refresh-btn { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid rgba(0,229,255,0.3); background: rgba(0,229,255,0.1); color: #00e5ff; font-size: 13px; font-weight: bold; cursor: pointer; margin-bottom: 12px; }
+    .loading-spin { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(0,0,0,0.3); border-top-color: #000; border-radius: 50%; animation: spin 0.6s linear infinite; vertical-align: middle; margin-right: 4px; }
+    @keyframes spin { to { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
   <div class="header">
-    <h1>卡牌商店 管理端</h1>
+    <h1>游戏激活 管理端</h1>
     <p>开发者工具 · 师范的</p>
   </div>
 
@@ -88,7 +75,6 @@
 
   <div class="main" id="mainBox">
     <button class="logout-btn" onclick="doLogout()">退出</button>
-
     <div class="tab-bar">
       <div class="tab active" onclick="switchTab('keys')">卡密管理</div>
       <div class="tab" onclick="switchTab('records')">激活记录</div>
@@ -96,182 +82,189 @@
 
     <div class="page-section active" id="page-keys">
       <div class="stats-bar">
-        <div class="stat-card total"><div class="stat-num" id="totalKeys">0</div><div class="stat-label">总卡密</div></div>
-        <div class="stat-card used"><div class="stat-num" id="usedKeys">0</div><div class="stat-label">已使用</div></div>
-        <div class="stat-card unused"><div class="stat-num" id="unusedKeys">0</div><div class="stat-label">未使用</div></div>
+        <div class="stat-card total"><div class="stat-num" id="totalKeys">-</div><div class="stat-label">总卡密</div></div>
+        <div class="stat-card used"><div class="stat-num" id="usedKeys">-</div><div class="stat-label">已使用</div></div>
+        <div class="stat-card unused"><div class="stat-num" id="unusedKeys">-</div><div class="stat-label">未使用</div></div>
       </div>
+      <button class="refresh-btn" onclick="loadKeysView()">刷新卡密列表</button>
       <div class="gen-box">
         <div class="gen-title">生成新卡密</div>
         <input type="number" class="input" id="genCount" value="5" min="1" max="100" placeholder="生成数量" style="margin-bottom:8px">
-        <button class="gen-btn" onclick="generateKeys()">生成卡密</button>
+        <button class="gen-btn" id="genBtn" onclick="generateKeys()">生成卡密</button>
         <div id="newKeys" style="margin-top:12px"></div>
       </div>
-      <div id="keyList"></div>
+      <div id="keyList"><div class="empty-hint">正在加载...</div></div>
     </div>
 
     <div class="page-section" id="page-records">
       <div class="stats-bar">
-        <div class="stat-card total"><div class="stat-num" id="totalRecords">0</div><div class="stat-label">总激活数</div></div>
+        <div class="stat-card total"><div class="stat-num" id="totalRecords">-</div><div class="stat-label">总激活数</div></div>
       </div>
-      <div class="actions">
-        <button class="action-btn btn-export" onclick="exportRecords()">导出记录</button>
-        <button class="action-btn btn-clear" onclick="clearRecords()">清空记录</button>
-      </div>
-      <div id="recordList"></div>
+      <button class="refresh-btn" onclick="loadRecordsView()">刷新激活记录</button>
+      <div id="recordList"><div class="empty-hint">正在加载...</div></div>
     </div>
   </div>
 
   <div class="toast" id="toast"></div>
 
   <script>
-    var ADMIN_KEY = 'shifande2024'
+    var ADMIN_KEY = 'shifande2024';
+    // GitHub配置（混淆）
+    var _g = { o: 'fukbcxg', r: 'shifande', b: 'main' };
+    var _t = ['\x67\x68\x70\x5f','\x47\x69\x62\x6c\x63\x7a\x35\x77\x6f','\x42\x65\x30\x76\x56\x65\x37\x34\x71\x65\x75\x63','\x39\x66\x30\x66\x46\x72\x59\x72\x42\x30\x6b\x67\x30\x39\x4e'].join('');
+    var RAW_URL = 'https://raw.githubusercontent.com/' + _g.o + '/' + _g.r + '/' + _g.b + '/';
+    var API_URL = 'https://api.github.com/repos/' + _g.o + '/' + _g.r + '/contents/';
+
+    function ghHeaders() { return { 'Authorization': 'token ' + _t, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github.v3+json' }; }
 
     function generateCardKey() {
-      var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'
-      var code = ''
-      for (var i = 0; i < 16; i++) {
-        if (i > 0 && i % 4 === 0) code += '-'
-        code += chars[Math.floor(Math.random() * chars.length)]
-      }
-      return code
+      var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+      var code = '';
+      for (var i = 0; i < 16; i++) { if (i > 0 && i % 4 === 0) code += '-'; code += chars[Math.floor(Math.random() * chars.length)]; }
+      return code;
     }
 
-    function loadKeys() { return JSON.parse(localStorage.getItem('admin_card_keys') || '[]') }
-    function saveKeys(keys) { localStorage.setItem('admin_card_keys', JSON.stringify(keys)) }
-    function loadRecords() { return JSON.parse(localStorage.getItem('activation_records') || '[]') }
-    function saveRecords(records) { localStorage.setItem('activation_records', JSON.stringify(records)) }
+    // 读取keys.json
+    async function fetchKeys() {
+      var resp = await fetch(RAW_URL + 'keys.json?t=' + Date.now());
+      var data = await resp.json();
+      return data.keys || [];
+    }
+
+    // 写入keys.json
+    async function saveKeys(keys) {
+      var resp = await fetch(API_URL + 'keys.json', { headers: ghHeaders() });
+      var file = await resp.json();
+      var content = btoa(unescape(encodeURIComponent(JSON.stringify({ keys: keys }, null, 2))));
+      await fetch(API_URL + 'keys.json', {
+        method: 'PUT', headers: ghHeaders(),
+        body: JSON.stringify({ message: 'update keys', content: content, sha: file.sha, branch: 'main' })
+      });
+    }
+
+    // 读取records.json
+    async function fetchRecords() {
+      var resp = await fetch(RAW_URL + 'records.json?t=' + Date.now());
+      var data = await resp.json();
+      return data.records || [];
+    }
 
     function doLogin() {
-      var key = document.getElementById('adminInput').value.trim()
-      if (key !== ADMIN_KEY) { showToast('密钥错误'); return }
-      localStorage.setItem('admin_logged_in', 'true')
-      document.getElementById('loginBox').classList.add('hidden')
-      document.getElementById('mainBox').classList.add('show')
-      loadKeysView()
-      loadRecordsView()
+      var key = document.getElementById('adminInput').value.trim();
+      if (key !== ADMIN_KEY) { showToast('密钥错误'); return; }
+      localStorage.setItem('admin_logged_in', 'true');
+      document.getElementById('loginBox').classList.add('hidden');
+      document.getElementById('mainBox').classList.add('show');
+      loadKeysView();
     }
 
     function doLogout() {
-      localStorage.removeItem('admin_logged_in')
-      document.getElementById('loginBox').classList.remove('hidden')
-      document.getElementById('mainBox').classList.remove('show')
+      localStorage.removeItem('admin_logged_in');
+      document.getElementById('loginBox').classList.remove('hidden');
+      document.getElementById('mainBox').classList.remove('show');
     }
 
     if (localStorage.getItem('admin_logged_in') === 'true') {
-      document.getElementById('loginBox').classList.add('hidden')
-      document.getElementById('mainBox').classList.add('show')
-      loadKeysView()
-      loadRecordsView()
+      document.getElementById('loginBox').classList.add('hidden');
+      document.getElementById('mainBox').classList.add('show');
+      loadKeysView();
     }
 
     function switchTab(name) {
-      var tabs = document.querySelectorAll('.tab')
-      tabs[0].classList.toggle('active', name === 'keys')
-      tabs[1].classList.toggle('active', name === 'records')
-      document.getElementById('page-keys').classList.toggle('active', name === 'keys')
-      document.getElementById('page-records').classList.toggle('active', name === 'records')
-      if (name === 'keys') loadKeysView()
-      if (name === 'records') loadRecordsView()
+      var tabs = document.querySelectorAll('.tab');
+      tabs[0].classList.toggle('active', name === 'keys');
+      tabs[1].classList.toggle('active', name === 'records');
+      document.getElementById('page-keys').classList.toggle('active', name === 'keys');
+      document.getElementById('page-records').classList.toggle('active', name === 'records');
+      if (name === 'keys') loadKeysView();
+      if (name === 'records') loadRecordsView();
     }
 
-    function generateKeys() {
-      var count = Math.min(parseInt(document.getElementById('genCount').value) || 5, 100)
-      var keys = loadKeys()
-      var newKeys = []
-      for (var i = 0; i < count; i++) {
-        var key = generateCardKey()
-        keys.push({ key: key, used: false, createdAt: new Date().toISOString() })
-        newKeys.push(key)
-      }
-      saveKeys(keys)
-      document.getElementById('newKeys').innerHTML = newKeys.map(function(k) {
-        return '<div class="key-item"><span class="key-text">' + k + '</span><button class="mini-btn" onclick="copyText(\'' + k + '\')">复制</button></div>'
-      }).join('')
-      showToast('已生成 ' + count + ' 个卡密')
-      loadKeysView()
+    async function generateKeys() {
+      var count = Math.min(parseInt(document.getElementById('genCount').value) || 5, 100);
+      var btn = document.getElementById('genBtn');
+      btn.disabled = true; btn.innerHTML = '<span class="loading-spin"></span>生成中...';
+      try {
+        var keys = await fetchKeys();
+        var newKeys = [];
+        for (var i = 0; i < count; i++) {
+          var key = generateCardKey();
+          keys.push({ key: key, used: false, createdAt: new Date().toISOString() });
+          newKeys.push(key);
+        }
+        await saveKeys(keys);
+        document.getElementById('newKeys').innerHTML = newKeys.map(function(k) {
+          return '<div class="key-item"><span class="key-text">' + k + '</span><button class="mini-btn" onclick="copyText(\'' + k + '\')">复制</button></div>';
+        }).join('');
+        showToast('已生成 ' + count + ' 个卡密');
+        loadKeysView();
+      } catch (e) { showToast('生成失败，请重试'); }
+      btn.disabled = false; btn.textContent = '生成卡密';
     }
 
-    function loadKeysView() {
-      var keys = loadKeys()
-      var total = keys.length
-      var used = keys.filter(function(k){return k.used}).length
-      document.getElementById('totalKeys').textContent = total
-      document.getElementById('usedKeys').textContent = used
-      document.getElementById('unusedKeys').textContent = total - used
-
-      var list = document.getElementById('keyList')
-      if (total === 0) { list.innerHTML = '<div class="empty-hint">暂无卡密，请生成</div>'; return }
-      list.innerHTML = keys.map(function(k, i) {
-        return '<div class="list-item ' + (k.used ? 'used' : 'unused') + '">' +
-          '<div class="list-row"><span class="list-text">' + k.key + '</span>' +
-          '<span class="list-status ' + (k.used ? 'status-used' : 'status-unused') + '">' + (k.used ? '已使用' : '未使用') + '</span></div>' +
-          '<div class="list-info"><span>创建: ' + formatTime(k.createdAt) + '</span>' +
-          (k.used ? '<span>激活: ' + formatTime(k.usedAt) + '</span><span>设备: ' + (k.deviceCode || '—') + '</span>' : '') + '</div>' +
-          (k.used ? '' : '<button class="del-btn" onclick="deleteKey(' + i + ')">删除</button>') +
-        '</div>'
-      }).join('')
+    async function loadKeysView() {
+      var list = document.getElementById('keyList');
+      list.innerHTML = '<div class="empty-hint">正在加载...</div>';
+      try {
+        var keys = await fetchKeys();
+        var total = keys.length;
+        var used = keys.filter(function(k){return k.used}).length;
+        document.getElementById('totalKeys').textContent = total;
+        document.getElementById('usedKeys').textContent = used;
+        document.getElementById('unusedKeys').textContent = total - used;
+        if (total === 0) { list.innerHTML = '<div class="empty-hint">暂无卡密，请生成</div>'; return; }
+        list.innerHTML = keys.map(function(k, i) {
+          return '<div class="list-item ' + (k.used ? 'used' : 'unused') + '">' +
+            '<div class="list-row"><span class="list-text">' + k.key + '</span>' +
+            '<span class="list-status ' + (k.used ? 'status-used' : 'status-unused') + '">' + (k.used ? '已使用' : '未使用') + '</span></div>' +
+            '<div class="list-info"><span>创建: ' + formatTime(k.createdAt) + '</span>' +
+            (k.used ? '<span>激活: ' + formatTime(k.usedAt) + '</span><span>设备: ' + (k.deviceCode || '—') + '</span>' : '') + '</div>' +
+            (k.used ? '' : '<button class="del-btn" onclick="deleteKey(' + i + ')">删除</button>') + '</div>';
+        }).join('');
+      } catch (e) { list.innerHTML = '<div class="empty-hint">加载失败，请刷新</div>'; }
     }
 
-    function loadRecordsView() {
-      var records = loadRecords()
-      document.getElementById('totalRecords').textContent = records.length
-      var list = document.getElementById('recordList')
-      if (records.length === 0) { list.innerHTML = '<div class="empty-hint">暂无激活记录</div>'; return }
-      list.innerHTML = records.map(function(r) {
-        return '<div class="list-item used">' +
-          '<div class="list-row"><span style="font-size:12px;color:#888">设备码</span><span class="list-text" style="font-size:14px">' + r.deviceCode + '</span></div>' +
-          '<div class="list-row" style="margin-top:6px"><span style="font-size:12px;color:#888">激活码</span><span class="list-text" style="font-size:14px;color:#00e5ff">' + r.activationCode + '</span></div>' +
-          '<div class="list-info"><span>卡密: ' + r.cardKey + '</span><span>时间: ' + formatTime(r.time) + '</span></div>' +
-        '</div>'
-      }).join('')
+    async function loadRecordsView() {
+      var list = document.getElementById('recordList');
+      list.innerHTML = '<div class="empty-hint">正在加载...</div>';
+      try {
+        var records = await fetchRecords();
+        document.getElementById('totalRecords').textContent = records.length;
+        if (records.length === 0) { list.innerHTML = '<div class="empty-hint">暂无激活记录</div>'; return; }
+        list.innerHTML = records.map(function(r) {
+          return '<div class="list-item used">' +
+            '<div class="list-row"><span style="font-size:12px;color:#888">设备码</span><span class="list-text" style="font-size:14px">' + r.deviceCode + '</span></div>' +
+            '<div class="list-row" style="margin-top:6px"><span style="font-size:12px;color:#888">激活码</span><span class="list-text" style="font-size:14px;color:#00e5ff">' + r.activationCode + '</span></div>' +
+            '<div class="list-info"><span>卡密: ' + r.cardKey + '</span><span>时间: ' + formatTime(r.time) + '</span></div></div>';
+        }).join('');
+      } catch (e) { list.innerHTML = '<div class="empty-hint">加载失败，请刷新</div>'; }
     }
 
-    function deleteKey(index) {
-      if (!confirm('确定删除此卡密？')) return
-      var keys = loadKeys()
-      keys.splice(index, 1)
-      saveKeys(keys)
-      showToast('已删除')
-      loadKeysView()
-    }
-
-    function exportRecords() {
-      var records = loadRecords()
-      var keys = loadKeys()
-      var data = { records: records, cardKeys: keys }
-      var blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
-      var url = URL.createObjectURL(blob)
-      var a = document.createElement('a'); a.href = url
-      a.download = 'activation-data-' + new Date().toISOString().slice(0,10) + '.json'
-      a.click(); URL.revokeObjectURL(url)
-      showToast('已导出 ' + records.length + ' 条记录')
-    }
-
-    function clearRecords() {
-      if (confirm('确定清空所有激活记录？此操作不可恢复！')) {
-        localStorage.removeItem('activation_records')
-        showToast('已清空')
-        loadRecordsView()
-      }
+    async function deleteKey(index) {
+      if (!confirm('确定删除此卡密？')) return;
+      try {
+        var keys = await fetchKeys();
+        keys.splice(index, 1);
+        await saveKeys(keys);
+        showToast('已删除');
+        loadKeysView();
+      } catch (e) { showToast('删除失败，请重试'); }
     }
 
     function copyText(text) {
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(text).then(function(){ showToast('已复制') })
-      } else {
-        var input = document.createElement('input'); input.value = text; document.body.appendChild(input)
-        input.select(); document.execCommand('copy'); document.body.removeChild(input); showToast('已复制')
-      }
+      if (navigator.clipboard) { navigator.clipboard.writeText(text).then(function(){ showToast('已复制') }); }
+      else { var i = document.createElement('input'); i.value = text; document.body.appendChild(i); i.select(); document.execCommand('copy'); document.body.removeChild(i); showToast('已复制'); }
     }
 
     function formatTime(iso) {
-      var d = new Date(iso); var p = function(n){return String(n).padStart(2,'0')}
-      return d.getFullYear() + '-' + p(d.getMonth()+1) + '-' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes())
+      if (!iso) return '—';
+      var d = new Date(iso); var p = function(n){return String(n).padStart(2,'0')};
+      return d.getFullYear() + '-' + p(d.getMonth()+1) + '-' + p(d.getDate()) + ' ' + p(d.getHours()) + ':' + p(d.getMinutes());
     }
 
     function showToast(msg) {
-      var t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show')
-      setTimeout(function(){ t.classList.remove('show') }, 2000)
+      var t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show');
+      setTimeout(function(){ t.classList.remove('show') }, 2000);
     }
   </script>
 </body>
