@@ -9,8 +9,10 @@
     },
     {
       "key": "72A8-GWNT-YX3L-B3AZ",
-      "used": false,
-      "createdAt": "2026-07-07T10:00:00Z"
+      "used": true,
+      "createdAt": "2026-07-07T10:00:00Z",
+      "usedAt": "2026-07-07T15:36:36.185Z",
+      "deviceCode": "43756780"
     },
     {
       "key": "LN8E-3XLC-R2NK-FM95",
