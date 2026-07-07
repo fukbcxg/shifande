@@ -2,8 +2,10 @@
   "keys": [
     {
       "key": "Q3GB-S9BM-L2M6-ZV38",
-      "used": false,
-      "createdAt": "2026-07-07T10:00:00Z"
+      "used": true,
+      "createdAt": "2026-07-07T10:00:00Z",
+      "usedAt": "2026-07-07T08:05:32.582Z",
+      "deviceCode": "23140549"
     },
     {
       "key": "72A8-GWNT-YX3L-B3AZ",
