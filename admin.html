@@ -160,6 +160,8 @@
     if (localStorage.getItem('admin_logged_in') === 'true') {
       document.getElementById('loginBox').classList.add('hidden')
       document.getElementById('mainBox').classList.add('show')
+      loadKeysView()
+      loadRecordsView()
     }
 
     function switchTab(name) {
