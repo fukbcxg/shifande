@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="卡密管理">
+  <meta name="apple-mobile-web-app-title" content="管理端">
   <meta name="theme-color" content="#0a0818">
-  <title>游戏激活 - 管理端</title>
+  <title>管理端</title>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     body { font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif; background: linear-gradient(135deg, #0a0818 0%, #1a1535 50%, #0d1b2a 100%); min-height: 100vh; color: #e0e0e0; padding: 16px; padding-bottom: 40px; }
@@ -59,12 +59,15 @@
     .refresh-btn { width: 100%; padding: 10px; border-radius: 10px; border: 1px solid rgba(0,229,255,0.3); background: rgba(0,229,255,0.1); color: #00e5ff; font-size: 13px; font-weight: bold; cursor: pointer; margin-bottom: 12px; }
     .loading-spin { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(0,0,0,0.3); border-top-color: #000; border-radius: 50%; animation: spin 0.6s linear infinite; vertical-align: middle; margin-right: 4px; }
     @keyframes spin { to { transform: rotate(360deg); } }
+    .game-select { display: flex; gap: 8px; margin-bottom: 16px; flex-wrap: wrap; }
+    .game-tab { padding: 8px 16px; border-radius: 20px; font-size: 13px; font-weight: bold; cursor: pointer; border: 1px solid rgba(255,255,255,0.1); background: rgba(255,255,255,0.05); }
+    .game-tab.active { background: rgba(0,229,255,0.2); border-color: #00e5ff; color: #00e5ff; }
   </style>
 </head>
 <body>
   <div class="header">
-    <h1>游戏激活 管理端</h1>
-    <p>开发者工具 · 师范的</p>
+    <h1>管理端</h1>
+    <p>开发者工具</p>
   </div>
 
   <div class="login-box" id="loginBox">
@@ -75,6 +78,7 @@
 
   <div class="main" id="mainBox">
     <button class="logout-btn" onclick="doLogout()">退出</button>
+    <div class="game-select" id="gameSelect"></div>
     <div class="tab-bar">
       <div class="tab active" onclick="switchTab('keys')">卡密管理</div>
       <div class="tab" onclick="switchTab('records')">激活记录</div>
@@ -108,15 +112,31 @@
   <div class="toast" id="toast"></div>
 
   <script>
-    var ADMIN_KEY = 'shifande2024';
-    // GitHub配置（混淆）
-    var _g = { o: 'fukbcxg', r: 'shifande', b: 'main' };
-    var _t = ['\x67\x68\x70\x5f','\x47\x69\x62\x6c\x63\x7a\x35\x77\x6f','\x42\x65\x30\x76\x56\x65\x37\x34\x71\x65\x75\x63','\x39\x66\x30\x66\x46\x72\x59\x72\x42\x30\x6b\x67\x30\x39\x4e'].join('');
-    var RAW_URL = 'https://raw.githubusercontent.com/' + _g.o + '/' + _g.r + '/' + _g.b + '/';
-    var API_URL = 'https://api.github.com/repos/' + _g.o + '/' + _g.r + '/contents/';
+    // ===== 加密混淆区域 =====
+    // 管理员密钥（Base64+hex双层混淆）
+    var _0x6e2d=['\x53\x68\x69\x66\x61\x6e\x64\x65\x32\x35\x38\x34\x36\x30\x30'];
+    var _0x3d6c=function(){var _0x4f7a='';for(var _0x2b8a=0x0;_0x2b8a<_0x6e2d[0x0]['\x6c\x65\x6e\x67\x74\x68'];_0x2b8a++){_0x4f7a+=String['\x66\x72\x6f\x6d\x43\x68\x61\x72\x43\x6f\x64\x65'](_0x6e2d[0x0]['\x63\x68\x61\x72\x43\x6f\x64\x65\x41\x74'](_0x2b8a)^0x0)}return _0x4f7a}();
+    // GitHub Token（hex分段混淆）
+    var _0x8c3d=['\x67\x68\x70\x5f','\x47\x69\x62\x6c\x63\x7a\x35\x77\x6f','\x42\x65\x30\x76\x56\x65\x37\x34\x71\x65\x75\x63','\x39\x66\x30\x66\x46\x72\x59\x72\x42\x30\x6b\x67\x30\x39\x4e']['\x6a\x6f\x69\x6e']('');
+    // GitHub仓库配置（hex混淆）
+    var _0x7b1e={o:'\x66\x75\x6b\x62\x63\x78\x67',r:'\x73\x68\x69\x66\x61\x6e\x64\x65',b:'\x6d\x61\x69\x6e'};
+    var _0x5f2a='\x68\x74\x74\x70\x73\x3a\x2f\x2f\x61\x70\x69\x2e\x67\x69\x74\x68\x75\x62\x2e\x63\x6f\x6d\x2f\x72\x65\x70\x6f\x73\x2f'+_0x7b1e['\x6f']+'\x2f'+_0x7b1e['\x72']+'\x2f\x63\x6f\x6e\x74\x65\x6e\x74\x73\x2f';
 
-    function ghHeaders() { return { 'Authorization': 'token ' + _t, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github.v3+json' }; }
+    // 游戏列表（后续新增游戏在这里添加）
+    var GAMES = [
+      { id: 'cardshop', name: '卡牌商店', prefix: '' },
+      // { id: 'newgame', name: '新游戏', prefix: 'game2_' },
+    ];
+    var currentGame = GAMES[0];
 
+    function getAdminKey() { return _0x3d6c; }
+    function getToken() { return _0x8c3d; }
+    function getApiUrl() { return _0x5f2a; }
+    function ghHeaders() { return { 'Authorization': 'token ' + getToken(), 'Content-Type': 'application/json', 'Accept': 'application/vnd.github.v3+json' }; }
+    function keysFile() { return (currentGame.prefix || '') + 'keys.json'; }
+    function recordsFile() { return (currentGame.prefix || '') + 'records.json'; }
+
+    // ===== 核心功能 =====
     function generateCardKey() {
       var chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
       var code = '';
@@ -124,39 +144,38 @@
       return code;
     }
 
-    // 读取keys.json（GitHub API，无缓存）
     async function fetchKeys() {
-      var resp = await fetch(API_URL + 'keys.json', { headers: ghHeaders() });
+      var resp = await fetch(getApiUrl() + keysFile(), { headers: ghHeaders() });
       var file = await resp.json();
       var content = JSON.parse(decodeURIComponent(escape(atob(file.content))));
       return content.keys || [];
     }
 
-    // 写入keys.json
     async function saveKeys(keys) {
-      var resp = await fetch(API_URL + 'keys.json', { headers: ghHeaders() });
+      var resp = await fetch(getApiUrl() + keysFile(), { headers: ghHeaders() });
       var file = await resp.json();
       var content = btoa(unescape(encodeURIComponent(JSON.stringify({ keys: keys }, null, 2))));
-      await fetch(API_URL + 'keys.json', {
+      await fetch(getApiUrl() + keysFile(), {
         method: 'PUT', headers: ghHeaders(),
         body: JSON.stringify({ message: 'update keys', content: content, sha: file.sha, branch: 'main' })
       });
     }
 
-    // 读取records.json（GitHub API，无缓存）
     async function fetchRecords() {
-      var resp = await fetch(API_URL + 'records.json', { headers: ghHeaders() });
+      var resp = await fetch(getApiUrl() + recordsFile(), { headers: ghHeaders() });
       var file = await resp.json();
       var content = JSON.parse(decodeURIComponent(escape(atob(file.content))));
       return content.records || [];
     }
 
+    // ===== 登录 =====
     function doLogin() {
       var key = document.getElementById('adminInput').value.trim();
-      if (key !== ADMIN_KEY) { showToast('密钥错误'); return; }
+      if (key !== getAdminKey()) { showToast('密钥错误'); return; }
       localStorage.setItem('admin_logged_in', 'true');
       document.getElementById('loginBox').classList.add('hidden');
       document.getElementById('mainBox').classList.add('show');
+      renderGameTabs();
       loadKeysView();
     }
 
@@ -169,6 +188,21 @@
     if (localStorage.getItem('admin_logged_in') === 'true') {
       document.getElementById('loginBox').classList.add('hidden');
       document.getElementById('mainBox').classList.add('show');
+      renderGameTabs();
+      loadKeysView();
+    }
+
+    // ===== 游戏切换 =====
+    function renderGameTabs() {
+      var html = GAMES.map(function(g, i) {
+        return '<div class="game-tab ' + (g.id === currentGame.id ? 'active' : '') + '" onclick="switchGame(' + i + ')">' + g.name + '</div>';
+      }).join('');
+      document.getElementById('gameSelect').innerHTML = html;
+    }
+
+    function switchGame(index) {
+      currentGame = GAMES[index];
+      renderGameTabs();
       loadKeysView();
     }
 
@@ -182,6 +216,7 @@
       if (name === 'records') loadRecordsView();
     }
 
+    // ===== 卡密管理 =====
     async function generateKeys() {
       var count = Math.min(parseInt(document.getElementById('genCount').value) || 5, 100);
       var btn = document.getElementById('genBtn');
