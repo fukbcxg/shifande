@@ -12,8 +12,10 @@
     },
     {
       "key": "LN8E-3XLC-R2NK-FM95",
-      "used": false,
-      "createdAt": "2026-07-07T10:00:00Z"
+      "used": true,
+      "createdAt": "2026-07-07T10:00:00Z",
+      "usedAt": "2026-07-07T06:10:14.738Z",
+      "deviceCode": "66884258"
     },
     {
       "key": "9AJT-EA6G-D8GQ-FMNF",
