@@ -83,8 +83,10 @@
     },
     {
       "key": "KAXU-AU4J-8972-JRA2",
-      "used": false,
-      "createdAt": "2026-07-07T09:05:16.096Z"
+      "used": true,
+      "createdAt": "2026-07-07T09:05:16.096Z",
+      "usedAt": "2026-07-07T14:50:17.149Z",
+      "deviceCode": "67432220"
     },
     {
       "key": "32VQ-DKCV-MJMQ-N3N4",
