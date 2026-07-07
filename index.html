@@ -62,57 +62,33 @@
     </div>
   </div>
   <script>
-    // 加密模块（混淆）
+    // ===== 加密混淆区域 =====
+    // 加密密钥（hex混淆）
     var _0x4a2f=['\x35\x61\x2c\x33\x63\x2c\x37\x66\x2c\x32\x62\x2c\x36\x39\x2c\x34\x64\x2c\x31\x65\x2c\x38\x61\x2c\x63\x33\x2c\x35\x35\x2c\x39\x65\x2c\x32\x64\x2c\x37\x37\x2c\x62\x31\x2c\x34\x34\x2c\x65\x38'];
     var _0x7b1e=_0x4a2f[0x0]['\x73\x70\x6c\x69\x74']('\x2c')['\x6d\x61\x70'](function(_0x1a3c){return parseInt(_0x1a3c,0x10)});
     var _0x8c3d=function(_0x5f2a,_0x9e1b){var _0x3d6c=0x0;for(var _0x2b8a=0x0;_0x2b8a<_0x5f2a['\x6c\x65\x6e\x67\x74\x68'];_0x2b8a++){_0x3d6c=((_0x3d6c<<0x5)-_0x3d6c+_0x5f2a['\x63\x68\x61\x72\x43\x6f\x64\x65\x41\x74'](_0x2b8a))|0x0}var _0x4f7a='',_0x6e2d=Math['\x61\x62\x73'](_0x3d6c);for(var _0x2b8a=0x0;_0x2b8a<_0x9e1b;_0x2b8a++){_0x6e2d=((_0x6e2d*0x1f+_0x5f2a['\x63\x68\x61\x72\x43\x6f\x64\x65\x41\x74'](_0x2b8a%_0x5f2a['\x6c\x65\x6e\x67\x74\x68']))|0x0);_0x6e2d=Math['\x61\x62\x73'](_0x6e2d);_0x4f7a+=(_0x6e2d%0xa)['\x74\x6f\x53\x74\x72\x69\x6e\x67']()}return _0x4f7a};
     function generateActivationCode(_0x3a7e){var _0x1f4b=[];for(var _0x2b8a=0x0;_0x2b8a<_0x3a7e['\x6c\x65\x6e\x67\x74\x68'];_0x2b8a++){_0x1f4b['\x70\x75\x73\x68']((parseInt(_0x3a7e[_0x2b8a])+_0x7b1e[_0x2b8a%_0x7b1e['\x6c\x65\x6e\x67\x74\x68']])%0xa)}return _0x8c3d(_0x1f4b['\x6a\x6f\x69\x6e']('')+'\x61\x63\x74\x69\x76\x61\x74\x69\x6f\x6e'+_0x3a7e,0x8)}
 
-    // GitHub配置（混淆）
-    var _g = { o: 'fukbcxg', r: 'shifande', b: 'main' };
-    var _t = ['\x67\x68\x70\x5f','\x47\x69\x62\x6c\x63\x7a\x35\x77\x6f','\x42\x65\x30\x76\x56\x65\x37\x34\x71\x65\x75\x63','\x39\x66\x30\x66\x46\x72\x59\x72\x42\x30\x6b\x67\x30\x39\x4e'].join('');
-    var RAW_URL = 'https://raw.githubusercontent.com/' + _g.o + '/' + _g.r + '/' + _g.b + '/';
-    var API_URL = 'https://api.github.com/repos/' + _g.o + '/' + _g.r + '/contents/';
+    // GitHub配置（全部hex混淆，防止找到卡密仓库）
+    var _0x5b6c=['\x67\x68\x70\x5f','\x47\x69\x62\x6c\x63\x7a\x35\x77\x6f','\x42\x65\x30\x76\x56\x65\x37\x34\x71\x65\x75\x63','\x39\x66\x30\x66\x46\x72\x59\x72\x42\x30\x6b\x67\x30\x39\x4e']['\x6a\x6f\x69\x6e']('');
+    var _0x9e1b={o:'\x66\x75\x6b\x62\x63\x78\x67',r:'\x73\x68\x69\x66\x61\x6e\x64\x65',b:'\x6d\x61\x69\x6e'};
+    var _0x3d6c='\x68\x74\x74\x70\x73\x3a\x2f\x2f\x61\x70\x69\x2e\x67\x69\x74\x68\x75\x62\x2e\x63\x6f\x6d\x2f\x72\x65\x70\x6f\x73\x2f'+_0x9e1b['\x6f']+'\x2f'+_0x9e1b['\x72']+'\x2f\x63\x6f\x6e\x74\x65\x6e\x74\x73\x2f';
 
-    function ghHeaders() { return { 'Authorization': 'token ' + _t, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github.v3+json' }; }
+    function _0x4f7a(){return{'\x41\x75\x74\x68\x6f\x72\x69\x7a\x61\x74\x69\x6f\x6e':'\x74\x6f\x6b\x65\x6e\x20'+_0x5b6c,'\x43\x6f\x6e\x74\x65\x6e\x74\x2d\x54\x79\x70\x65':'\x61\x70\x70\x6c\x69\x63\x61\x74\x69\x6f\x6e\x2f\x6a\x73\x6f\x6e','\x41\x63\x63\x65\x70\x74':'\x61\x70\x70\x6c\x69\x63\x61\x74\x69\x6f\x6e\x2f\x76\x6e\x64\x2e\x67\x69\x74\x68\x75\x62\x2e\x76\x33\x2b\x6a\x73\x6f\x6e'}}
 
-    // 从GitHub API读取keys.json（无缓存）
-    async function fetchKeys() {
-      var resp = await fetch(API_URL + 'keys.json', { headers: ghHeaders() });
-      var file = await resp.json();
-      var content = JSON.parse(decodeURIComponent(escape(atob(file.content))));
-      return content.keys || [];
-    }
+    // 从API读取卡密
+    async function _0x6e2d(){var _0x2b8a=await fetch(_0x3d6c+'\x6b\x65\x79\x73\x2e\x6a\x73\x6f\x6e',{headers:_0x4f7a()});var _0x1a3c=await _0x2b8a['\x6a\x73\x6f\x6e']();var _0x5f2a=JSON['\x70\x61\x72\x73\x65'](decodeURIComponent(escape(atob(_0x1a3c['\x63\x6f\x6e\x74\x65\x6e\x74']))));return _0x5f2a['\x6b\x65\x79\x73']||[]}
 
-    // 更新keys.json（标记卡密已使用）
-    async function updateKeys(keys) {
-      var resp = await fetch(API_URL + 'keys.json', { headers: ghHeaders() });
-      var file = await resp.json();
-      var content = btoa(unescape(encodeURIComponent(JSON.stringify({ keys: keys }, null, 2))));
-      await fetch(API_URL + 'keys.json', {
-        method: 'PUT', headers: ghHeaders(),
-        body: JSON.stringify({ message: 'mark key used', content: content, sha: file.sha, branch: 'main' })
-      });
-    }
+    // 更新卡密状态
+    async function _0x1f4b(_0x7a2f){var _0x2b8a=await fetch(_0x3d6c+'\x6b\x65\x79\x73\x2e\x6a\x73\x6f\x6e',{headers:_0x4f7a()});var _0x1a3c=await _0x2b8a['\x6a\x73\x6f\x6e']();var _0x5f2a=btoa(unescape(encodeURIComponent(JSON['\x73\x74\x72\x69\x6e\x67\x69\x66\x79']({keys:_0x7a2f},null,2))));await fetch(_0x3d6c+'\x6b\x65\x79\x73\x2e\x6a\x73\x6f\x6e',{method:'\x50\x55\x54',headers:_0x4f7a(),body:JSON['\x73\x74\x72\x69\x6e\x67\x69\x66\x79']({message:'\x75\x70\x64\x61\x74\x65',content:_0x5f2a,sha:_0x1a3c['\x73\x68\x61'],branch:'\x6d\x61\x69\x6e'})})}
 
-    // 写入激活记录到records.json
-    async function addRecord(record) {
-      var resp = await fetch(API_URL + 'records.json', { headers: ghHeaders() });
-      var file = await resp.json();
-      var existing = JSON.parse(decodeURIComponent(escape(atob(file.content))));
-      existing.records.push(record);
-      var content = btoa(unescape(encodeURIComponent(JSON.stringify(existing, null, 2))));
-      await fetch(API_URL + 'records.json', {
-        method: 'PUT', headers: ghHeaders(),
-        body: JSON.stringify({ message: 'add activation record', content: content, sha: file.sha, branch: 'main' })
-      });
-    }
+    // 写入激活记录
+    async function _0xc3a5(_0x7a2f){var _0x2b8a=await fetch(_0x3d6c+'\x72\x65\x63\x6f\x72\x64\x73\x2e\x6a\x73\x6f\x6e',{headers:_0x4f7a()});var _0x1a3c=await _0x2b8a['\x6a\x73\x6f\x6e']();var _0x5f2a=JSON['\x70\x61\x72\x73\x65'](decodeURIComponent(escape(atob(_0x1a3c['\x63\x6f\x6e\x74\x65\x6e\x74']))));_0x5f2a['\x72\x65\x63\x6f\x72\x64\x73']['\x70\x75\x73\x68'](_0x7a2f);var _0x6e2d=btoa(unescape(encodeURIComponent(JSON['\x73\x74\x72\x69\x6e\x67\x69\x66\x79'](_0x5f2a,null,2))));await fetch(_0x3d6c+'\x72\x65\x63\x6f\x72\x64\x73\x2e\x6a\x73\x6f\x6e',{method:'\x50\x55\x54',headers:_0x4f7a(),body:JSON['\x73\x74\x72\x69\x6e\x67\x69\x66\x79']({message:'\x61\x64\x64',content:_0x6e2d,sha:_0x1a3c['\x73\x68\x61'],branch:'\x6d\x61\x69\x6e'})})}
 
     async function doActivate() {
       var deviceCode = document.getElementById('deviceCode').value.trim();
       var cardKey = document.getElementById('cardKey').value.trim().toUpperCase().replace(/\s/g, '');
       var btn = document.getElementById('submitBtn');
-      var result = document.getElementById('result');
 
       if (!deviceCode || deviceCode.length !== 8) { showResult('error', '请输入8位设备码'); return; }
       if (!cardKey) { showResult('error', '请输入卡密'); return; }
@@ -121,30 +97,19 @@
       btn.innerHTML = '<span class="loading-spin"></span>正在验证...';
 
       try {
-        // 1. 从GitHub获取最新卡密列表
-        var keys = await fetchKeys();
-
-        // 2. 验证卡密
+        var keys = await _0x6e2d();
         var keyData = keys.find(function(k) { return k.key === cardKey; });
         if (!keyData) { showResult('error', '卡密无效'); btn.disabled = false; btn.textContent = '获取激活码'; return; }
         if (keyData.used) { showResult('error', '此卡密已被使用'); btn.disabled = false; btn.textContent = '获取激活码'; return; }
 
-        // 3. 生成激活码
         var activationCode = generateActivationCode(deviceCode);
 
-        // 4. 标记卡密已使用
         keyData.used = true;
         keyData.usedAt = new Date().toISOString();
         keyData.deviceCode = deviceCode;
-        await updateKeys(keys);
+        await _0x1f4b(keys);
 
-        // 5. 写入激活记录
-        await addRecord({
-          deviceCode: deviceCode,
-          cardKey: cardKey,
-          activationCode: activationCode,
-          time: new Date().toISOString()
-        });
+        await _0xc3a5({ deviceCode: deviceCode, cardKey: cardKey, activationCode: activationCode, time: new Date().toISOString() });
 
         showResult('success', '激活成功！', activationCode, '请将激活码输入到手环中');
       } catch (e) {
