@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#0a0818">
+  <title>卡牌商店 - 激活</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'PingFang SC', sans-serif;
+      background: linear-gradient(135deg, #0a0818 0%, #1a1535 50%, #0d1b2a 100%);
+      min-height: 100vh; color: #e0e0e0; display: flex; justify-content: center; align-items: center; padding: 16px;
+    }
+    .container { width: 100%; max-width: 420px; }
+    .header { text-align: center; margin-bottom: 28px; }
+    .header h1 { font-size: 24px; color: #00e5ff; text-shadow: 0 0 20px rgba(0,229,255,0.3); }
+    .header p { font-size: 13px; color: #69f0ae; margin-top: 6px; }
+    .card {
+      background: rgba(255,255,255,0.06); border-radius: 16px; padding: 28px 24px;
+      border: 1px solid rgba(0,229,255,0.2);
+    }
+    .input-group { margin-bottom: 20px; }
+    .label { font-size: 14px; color: #69f0ae; margin-bottom: 8px; font-weight: bold; }
+    .input {
+      width: 100%; padding: 14px; border-radius: 10px; font-size: 18px; font-family: monospace;
+      border: 2px solid rgba(0,229,255,0.3); background: rgba(0,0,0,0.3); color: #fff;
+      letter-spacing: 2px; text-align: center;
+    }
+    .input:focus { outline: none; border-color: #00e5ff; }
+    .input::placeholder { color: #4a5a7a; letter-spacing: 1px; font-size: 14px; }
+    .btn {
+      width: 100%; padding: 14px; border-radius: 12px; border: none; font-size: 16px;
+      font-weight: bold; cursor: pointer; background: #00e5ff; color: #000; transition: all 0.2s;
+    }
+    .btn:active { transform: scale(0.98); opacity: 0.9; }
+    .result {
+      margin-top: 20px; padding: 20px; border-radius: 12px; text-align: center; display: none;
+    }
+    .result.show { display: block; }
+    .result.success { background: rgba(105,240,174,0.1); border: 1px solid rgba(105,240,174,0.3); }
+    .result.error { background: rgba(255,82,82,0.1); border: 1px solid rgba(255,82,82,0.3); }
+    .result-label { font-size: 13px; margin-bottom: 8px; }
+    .result.success .result-label { color: #69f0ae; }
+    .result.error .result-label { color: #ff5252; }
+    .result-code { font-size: 36px; color: #fff; font-weight: bold; font-family: monospace; letter-spacing: 6px; }
+    .result-msg { font-size: 13px; color: #ccc; margin-top: 8px; }
+    .copy-btn {
+      margin-top: 12px; padding: 8px 20px; border-radius: 8px; border: 1px solid #00e5ff;
+      background: rgba(0,229,255,0.15); color: #00e5ff; font-size: 13px; font-weight: bold; cursor: pointer;
+    }
+    .steps { margin-top: 24px; font-size: 12px; color: #5a6a8a; line-height: 2; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>卡牌商店 激活</h1>
+      <p>输入设备码和卡密获取激活码</p>
+    </div>
+    <div class="card">
+      <div class="input-group">
+        <div class="label">设备码（手环上显示的8位数字）</div>
+        <input type="text" class="input" id="deviceCode" placeholder="输入设备码" maxlength="8" oninput="this.value=this.value.replace(/[^0-9]/g,'')">
+      </div>
+      <div class="input-group">
+        <div class="label">卡密</div>
+        <input type="text" class="input" id="cardKey" placeholder="XXXX-XXXX-XXXX-XXXX" maxlength="19" oninput="this.value=this.value.toUpperCase()">
+      </div>
+      <button class="btn" onclick="doActivate()">获取激活码</button>
+      <div class="result" id="result"></div>
+    </div>
+    <div class="steps">
+      <p>1. 在手环上打开卡牌商店，查看8位设备码</p>
+      <p>2. 输入设备码和卡密，点击获取激活码</p>
+      <p>3. 将获得的激活码输入到手环中完成激活</p>
+    </div>
+  </div>
+  <script>
+    // 加密密钥（混淆，与手环端一致）
+    var _0x4a2f=['\x35\x61\x2c\x33\x63\x2c\x37\x66\x2c\x32\x62\x2c\x36\x39\x2c\x34\x64\x2c\x31\x65\x2c\x38\x61\x2c\x63\x33\x2c\x35\x35\x2c\x39\x65\x2c\x32\x64\x2c\x37\x37\x2c\x62\x31\x2c\x34\x34\x2c\x65\x38'];
+    var _0x7b1e=_0x4a2f[0x0]['\x73\x70\x6c\x69\x74']('\x2c')['\x6d\x61\x70'](function(_0x1a3c){return parseInt(_0x1a3c,0x10)});
+    var _0x8c3d=function(_0x5f2a,_0x9e1b){var _0x3d6c=0x0;for(var _0x2b8a=0x0;_0x2b8a<_0x5f2a['\x6c\x65\x6e\x67\x74\x68'];_0x2b8a++){_0x3d6c=((_0x3d6c<<0x5)-_0x3d6c+_0x5f2a['\x63\x68\x61\x72\x43\x6f\x64\x65\x41\x74'](_0x2b8a))|0x0}var _0x4f7a='',_0x6e2d=Math['\x61\x62\x73'](_0x3d6c);for(var _0x2b8a=0x0;_0x2b8a<_0x9e1b;_0x2b8a++){_0x6e2d=((_0x6e2d*0x1f+_0x5f2a['\x63\x68\x61\x72\x43\x6f\x64\x65\x41\x74'](_0x2b8a%_0x5f2a['\x6c\x65\x6e\x67\x74\x68']))|0x0);_0x6e2d=Math['\x61\x62\x73'](_0x6e2d);_0x4f7a+=(_0x6e2d%0xa)['\x74\x6f\x53\x74\x72\x69\x6e\x67']()}return _0x4f7a};
+    function generateActivationCode(_0x3a7e){var _0x1f4b=[];for(var _0x2b8a=0x0;_0x2b8a<_0x3a7e['\x6c\x65\x6e\x67\x74\x68'];_0x2b8a++){_0x1f4b['\x70\x75\x73\x68']((parseInt(_0x3a7e[_0x2b8a])+_0x7b1e[_0x2b8a%_0x7b1e['\x6c\x65\x6e\x67\x74\x68']])%0xa)}return _0x8c3d(_0x1f4b['\x6a\x6f\x69\x6e']('')+'\x61\x63\x74\x69\x76\x61\x74\x69\x6f\x6e'+_0x3a7e,0x8)}
+
+    // 预置有效卡密列表（开发者生成后填入，离线验证）
+    var VALID_KEYS = [
+      "6KA9-5SL9-7ZCF-QJ38",
+      "CHB9-N3XC-8AYT-W9RC",
+      "U4YR-622Y-U5RM-DJGA",
+      "ZNJF-WHJ5-6XCT-9EHM",
+      "SMQK-VXBY-72DA-Z5RX"
+    ]
+
+    function doActivate() {
+      var deviceCode = document.getElementById('deviceCode').value.trim()
+      var cardKey = document.getElementById('cardKey').value.trim().toUpperCase()
+
+      if (!deviceCode || deviceCode.length !== 8) {
+        showResult('error', '请输入8位设备码')
+        return
+      }
+      if (!cardKey) {
+        showResult('error', '请输入卡密')
+        return
+      }
+
+      // 验证卡密
+      if (VALID_KEYS.indexOf(cardKey) === -1) {
+        showResult('error', '卡密无效')
+        return
+      }
+
+      // 检查是否已使用（localStorage）
+      var usedKeys = JSON.parse(localStorage.getItem('used_card_keys') || '[]')
+      if (usedKeys.indexOf(cardKey) !== -1) {
+        showResult('error', '此卡密已被使用')
+        return
+      }
+
+      // 生成激活码
+      var activationCode = generateActivationCode(deviceCode)
+
+      // 标记卡密已使用
+      usedKeys.push(cardKey)
+      localStorage.setItem('used_card_keys', JSON.stringify(usedKeys))
+
+      // 保存激活记录
+      var records = JSON.parse(localStorage.getItem('activation_records') || '[]')
+      records.push({
+        deviceCode: deviceCode,
+        cardKey: cardKey,
+        activationCode: activationCode,
+        time: new Date().toISOString()
+      })
+      localStorage.setItem('activation_records', JSON.stringify(records))
+
+      showResult('success', '激活成功！', activationCode, '请将激活码输入到手环中')
+    }
+
+    function showResult(type, label, code, msg) {
+      var result = document.getElementById('result')
+      result.className = 'result show ' + type
+      if (type === 'success') {
+        result.innerHTML = '<div class="result-label">' + label + '</div>' +
+          '<div class="result-code">' + code + '</div>' +
+          '<div class="result-msg">' + (msg || '') + '</div>' +
+          '<button class="copy-btn" onclick="copyCode(\'' + code + '\')">复制激活码</button>'
+      } else {
+        result.innerHTML = '<div class="result-label">' + label + '</div>'
+      }
+    }
+
+    function copyCode(code) {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(code).then(function(){ alert('已复制：' + code) })
+      } else {
+        var input = document.createElement('input'); input.value = code; document.body.appendChild(input)
+        input.select(); document.execCommand('copy'); document.body.removeChild(input); alert('已复制：' + code)
+      }
+    }
+  </script>
+</body>
+</html>
