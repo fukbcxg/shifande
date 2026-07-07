@@ -76,11 +76,12 @@
 
     function ghHeaders() { return { 'Authorization': 'token ' + _t, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github.v3+json' }; }
 
-    // 从GitHub读取keys.json
+    // 从GitHub API读取keys.json（无缓存）
     async function fetchKeys() {
-      var resp = await fetch(RAW_URL + 'keys.json?t=' + Date.now());
-      var data = await resp.json();
-      return data.keys || [];
+      var resp = await fetch(API_URL + 'keys.json', { headers: ghHeaders() });
+      var file = await resp.json();
+      var content = JSON.parse(decodeURIComponent(escape(atob(file.content))));
+      return content.keys || [];
     }
 
     // 更新keys.json（标记卡密已使用）
