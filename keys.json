@@ -88,8 +88,10 @@
     },
     {
       "key": "32VQ-DKCV-MJMQ-N3N4",
-      "used": false,
-      "createdAt": "2026-07-07T09:05:16.096Z"
+      "used": true,
+      "createdAt": "2026-07-07T09:05:16.096Z",
+      "usedAt": "2026-07-07T11:45:34.115Z",
+      "deviceCode": "23900550"
     },
     {
       "key": "FYHL-AHLZ-5TT5-DVYD",
