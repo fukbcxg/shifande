@@ -98,8 +98,10 @@
     },
     {
       "key": "UF8W-UWXD-W7SF-X7DG",
-      "used": false,
-      "createdAt": "2026-07-07T09:05:16.096Z"
+      "used": true,
+      "createdAt": "2026-07-07T09:05:16.096Z",
+      "usedAt": "2026-07-07T09:05:40.229Z",
+      "deviceCode": "30051226"
     },
     {
       "key": "3LBW-DBBA-NJZL-2KT2",
