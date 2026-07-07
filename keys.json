@@ -24,8 +24,10 @@
     },
     {
       "key": "R4FV-A4KE-TQ4L-U6ZX",
-      "used": false,
-      "createdAt": "2026-07-07T04:35:24.326Z"
+      "used": true,
+      "createdAt": "2026-07-07T04:35:24.326Z",
+      "usedAt": "2026-07-07T06:09:03.439Z",
+      "deviceCode": "13941937"
     },
     {
       "key": "2GRX-8AA5-PGX9-3NBJ",
