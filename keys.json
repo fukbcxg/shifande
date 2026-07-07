@@ -59,8 +59,10 @@
     },
     {
       "key": "7NEN-JE4E-ZDX6-2BB3",
-      "used": false,
-      "createdAt": "2026-07-07T04:37:42.714Z"
+      "used": true,
+      "createdAt": "2026-07-07T04:37:42.714Z",
+      "usedAt": "2026-07-07T04:38:38.128Z",
+      "deviceCode": "80170539"
     },
     {
       "key": "TUA9-E774-MJU3-KVUP",
