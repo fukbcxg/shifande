@@ -124,11 +124,12 @@
       return code;
     }
 
-    // 读取keys.json
+    // 读取keys.json（GitHub API，无缓存）
     async function fetchKeys() {
-      var resp = await fetch(RAW_URL + 'keys.json?t=' + Date.now());
-      var data = await resp.json();
-      return data.keys || [];
+      var resp = await fetch(API_URL + 'keys.json', { headers: ghHeaders() });
+      var file = await resp.json();
+      var content = JSON.parse(decodeURIComponent(escape(atob(file.content))));
+      return content.keys || [];
     }
 
     // 写入keys.json
@@ -142,11 +143,12 @@
       });
     }
 
-    // 读取records.json
+    // 读取records.json（GitHub API，无缓存）
     async function fetchRecords() {
-      var resp = await fetch(RAW_URL + 'records.json?t=' + Date.now());
-      var data = await resp.json();
-      return data.records || [];
+      var resp = await fetch(API_URL + 'records.json', { headers: ghHeaders() });
+      var file = await resp.json();
+      var content = JSON.parse(decodeURIComponent(escape(atob(file.content))));
+      return content.records || [];
     }
 
     function doLogin() {
