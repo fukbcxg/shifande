@@ -109,8 +109,10 @@
     },
     {
       "key": "3LBW-DBBA-NJZL-2KT2",
-      "used": false,
-      "createdAt": "2026-07-07T09:05:16.097Z"
+      "used": true,
+      "createdAt": "2026-07-07T09:05:16.097Z",
+      "usedAt": "2026-07-07T14:46:43.600Z",
+      "deviceCode": "26168373"
     }
   ]
 }
