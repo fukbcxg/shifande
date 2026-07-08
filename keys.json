@@ -122,8 +122,10 @@
     },
     {
       "key": "74HE-ERR7-DWV5-HF3L",
-      "used": false,
-      "createdAt": "2026-07-08T01:48:01.883Z"
+      "used": true,
+      "createdAt": "2026-07-08T01:48:01.883Z",
+      "usedAt": "2026-07-08T02:22:22.831Z",
+      "deviceCode": "65842806"
     },
     {
       "key": "9KL8-CHD7-ECD2-4UVN",
