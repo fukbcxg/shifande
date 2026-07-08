@@ -82,8 +82,10 @@
     },
     {
       "key": "TUA9-E774-MJU3-KVUP",
-      "used": false,
-      "createdAt": "2026-07-07T04:37:42.714Z"
+      "used": true,
+      "createdAt": "2026-07-07T04:37:42.714Z",
+      "usedAt": "2026-07-08T02:55:45.095Z",
+      "deviceCode": "88057065"
     },
     {
       "key": "KAXU-AU4J-8972-JRA2",
