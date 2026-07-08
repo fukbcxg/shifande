@@ -136,8 +136,10 @@
     },
     {
       "key": "556D-FAES-6RWZ-TT9Q",
-      "used": false,
-      "createdAt": "2026-07-08T01:48:01.883Z"
+      "used": true,
+      "createdAt": "2026-07-08T01:48:01.883Z",
+      "usedAt": "2026-07-08T15:27:51.068Z",
+      "deviceCode": "03881165"
     },
     {
       "key": "CWZ2-8UZR-H9BN-YKMU",
