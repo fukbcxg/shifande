@@ -44,8 +44,10 @@
     },
     {
       "key": "U5KC-DMUL-B32Q-HYEM",
-      "used": false,
-      "createdAt": "2026-07-07T04:35:24.326Z"
+      "used": true,
+      "createdAt": "2026-07-07T04:35:24.326Z",
+      "usedAt": "2026-07-08T01:56:27.028Z",
+      "deviceCode": "59198668"
     },
     {
       "key": "DWLX-3YVZ-8VYG-67SR",
