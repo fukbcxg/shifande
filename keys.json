@@ -143,8 +143,10 @@
     },
     {
       "key": "CWZ2-8UZR-H9BN-YKMU",
-      "used": false,
-      "createdAt": "2026-07-08T01:48:01.883Z"
+      "used": true,
+      "createdAt": "2026-07-08T01:48:01.883Z",
+      "usedAt": "2026-07-09T04:13:26.315Z",
+      "deviceCode": "39655774"
     },
     {
       "key": "CQLB-KELB-353B-JHKJ",
